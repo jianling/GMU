@@ -36,7 +36,7 @@
  * @module GMU
  * @title GMU API 文档
  */
-var gmu = gmu || {
+window.gmu = window.gmu || {
     version: '@version',
     $: window.Zepto,
 

@@ -73,7 +73,13 @@
              * @property {Boolean} [autoClose=true] 点击input之外自动关闭
              * @namespace options
              */
-            autoClose: false
+            autoClose: false,
+
+            /**
+             * @property {Boolean} [attachToBody=false] suggestion容器是否挂在body下面，默认挂在input的父容器下面
+             * @namespace options
+             */
+            attachToBody: false
         },
 
         template: {
@@ -97,11 +103,13 @@
                     $input.wrap( me.$mask =
                     $( '<div class="ui-suggestion-mask"></div>' ) );
 
-            // 考采用template的wrapper项渲染列表
-            me.$mask.append( me.tpl2html( 'wrapper' ) );
+            // 采用template的wrapper项渲染列表
+            // TODO 参数
+            me.$wrapper = $(me.tpl2html( 'wrapper' ));
 
-            me.$wrapper = me.$mask.find( '.ui-suggestion' )
-                    .prop('id', 'ui-suggestion-' + (guid++));
+            me._options['attachToBody'] ?  $(document.body).append(me.$wrapper) : me.$mask.append(me.$wrapper);
+
+            me.$wrapper.prop('id', 'ui-suggestion-' + (guid++));
             me.$content = me.$wrapper
                     .css( 'top', $input.height() + (me.wrapperTop =
                     parseInt( me.$wrapper.css( 'top' ), 10 ) || 0) )

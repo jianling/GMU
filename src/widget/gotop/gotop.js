@@ -54,7 +54,12 @@
              * @property {Function} [afterScroll=null] 返回顶部后执行的回调函数
              * @namespace options
              */
-        	afterScroll:        null
+        	afterScroll:        null,
+            /**
+             * @property {Boolean} [showAfterFirstScreen=false] 是否滚动出一屏之后才出现，默认true
+             * @namespace options
+             */
+            showAfterFirstScreen:        true
         },
 
         _init: function() {
@@ -139,7 +144,7 @@
         _check: function(position) {
             var me = this;
 
-            (position !== undefined ? position : window.pageYOffset) > document.documentElement.clientHeight ? me.show() : me.hide();
+            (position !== undefined ? position : window.pageYOffset) > (me._options['showAfterFirstScreen'] ? document.documentElement.clientHeight : 1) ? me.show() : me.hide();
             
             return  me;
         },
